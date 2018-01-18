@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Flood Irrigation</title>
+
+<link
+    href="http://cdn.pydata.org/bokeh/release/bokeh-0.12.13.min.css"
+    rel="stylesheet" type="text/css">
+<link
+    href="http://cdn.pydata.org/bokeh/release/bokeh-widgets-0.12.13.min.css"
+    rel="stylesheet" type="text/css">
+<script src="http://cdn.pydata.org/bokeh/release/bokeh-0.12.13.min.js"></script>
+<script src="http://cdn.pydata.org/bokeh/release/bokeh-widgets-0.12.13.min.js"></script>
+
+</head>
+<body>
+
+<h1>Welcome to Flood Irrigation App</h1>
+
+<p>current time: {{ timestamp }}</p>
+
+<table border="1">
+    <th>Name</th>
+    <th>Status</th>
+    <th>Timestamp</th>
+    <tr>
+        <td>{{sensor1.name}}</td>
+        <td>{{sensor1.status}}</td>
+        <td>{{sensor1.timestamp}}</td>
+    </tr>
+    <tr>
+        <td>{{sensor2.name}}</td>
+        <td>{{sensor2.status}}</td>
+        <td>{{sensor2.timestamp}}</td>
+    </tr>
+</table>
+
+{{temp_script|safe}}
+{{temp_div|safe}}
+</body>
+</html>
