@@ -13,7 +13,20 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 # ===============================================================================
+from threading import Thread
 from flask import Flask
-app = Flask(__name__)
+from sensor import sensor_poll
 
+app = Flask(__name__)
+app.config.update(dict(
+    SECRET_KEY='development key',
+    USERNAME='admin',
+    PASSWORD='default'))
+
+poll_config = {'poll_period': 1}
+
+# start a sensor polling thread
+t = Thread(target=sensor_poll, kwargs=poll_config)
+t.setDaemon(1)
+# t.start()
 # ============= EOF =============================================

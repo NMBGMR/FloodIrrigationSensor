@@ -13,6 +13,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 # ===============================================================================
+import time
 from datetime import datetime
 
 
@@ -20,5 +21,13 @@ def get_sensor_data(idx):
     return {'name': 'Sensor{}'.format(idx),
             'status': True,
             'timestamp': datetime.now()}
+
+
+def sensor_poll(poll_period):
+    print 'starting sensor poll {}'.format(poll_period)
+    while 1:
+        print 'polling'
+        time.sleep(poll_period)
+
 
 # ============= EOF =============================================

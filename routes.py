@@ -17,7 +17,7 @@ from datetime import datetime
 
 from bokeh.embed import components
 from bokeh.plotting import figure
-from flask import render_template
+from flask import render_template, request, session, redirect, url_for, flash
 from numpy.ma import array
 
 from application import app
@@ -51,6 +51,8 @@ def make_demo_plot():
 
 @app.route('/')
 def index():
+
+    print 'executing index'
     script, div = make_demo_plot()
     ctx = {'timestamp': datetime.now(),
            'sensor1': get_sensor_data(1),
@@ -59,4 +61,27 @@ def index():
            'temp_div': div}
 
     return render_template('index.html', **ctx)
+
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    error = None
+    if request.method == 'POST':
+        if request.form['username'] != app.config['USERNAME']:
+            error = 'Invalid username'
+        elif request.form['password'] != app.config['PASSWORD']:
+            error = 'Invalid password'
+        else:
+            session['logged_in'] = True
+            flash('You were logged in')
+            return redirect(url_for('index'))
+
+    return render_template('login.html', error=error)
+
+
+@app.route('/logout')
+def logout():
+    session.pop('logged_in', None)
+    flash('You were logged out')
+    return redirect(url_for('index'))
 # ============= EOF =============================================
